@@ -1,128 +1,320 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Justine Ilagan's Website</title>
-  <meta name="description" content="Justine Ilagan's personal website with projects, contact info, and portfolio.">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Visual Game Front Page — Import Photo</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: white;
-      min-height: 100vh;
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@300;600;800&display=swap');
+    :root{
+      --bg:#071427;
+      --neon-cyan:#00f0ff;
+      --neon-pink:#ff4fb3;
+      --glass: rgba(255,255,255,0.03);
     }
-    nav {
-      display: flex;
-      justify-content: space-between;
-      padding: 15px 30px;
-      background: rgba(0,0,0,0.5);
-      position: sticky;
-      top: 0;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: linear-gradient(180deg,var(--bg) 0%, #0d1622 100%);
+      color:#dfeefb;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px;
     }
-    nav a {
-      color: cyan;
-      text-decoration: none;
-      margin-left: 15px;
-      font-weight: bold;
+
+    .frame{
+      width:100%;
+      max-width:1100px;
+      border-radius:14px;
+      position:relative;
+      overflow:hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.35));
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 12px 40px rgba(2,6,23,0.6);
+      padding-bottom:18px;
     }
-    .hero {
-      text-align: center;
-      padding: 80px 20px;
+
+    .hud{
+      display:flex;
+      justify-content:space-between;
+      padding:18px 26px;
+      align-items:center;
+      gap:12px;
     }
-    .hero h1 {
-      font-size: 3em;
-      text-shadow: 0 0 15px cyan;
+    .logo{ font-family:'Press Start 2P', monospace; color:var(--neon-pink); font-size:12px; }
+    .score{ color:#cfeeff; letter-spacing:1px; font-weight:600; }
+    .score .val{ color:var(--neon-cyan); font-family:'Press Start 2P', monospace; margin-left:10px; }
+
+    .content{
+      display:flex;
+      gap:28px;
+      padding:20px;
+      align-items:center;
+      flex-wrap:wrap;
+      justify-content:center;
     }
-    .hero p {
-      margin-top: 10px;
-      font-size: 1.2em;
+
+    .photo-card{
+      width:360px;
+      background:var(--glass);
+      border-radius:12px;
+      padding:8px;
+      border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
     }
-    button {
-      margin-top: 20px;
-      padding: 15px 35px;
-      font-size: 16px;
-      border: none;
-      border-radius: 30px;
-      background: cyan;
-      color: black;
-      cursor: pointer;
-      box-shadow: 0 0 15px cyan;
-      transition: 0.3s;
+    .photo-card img{
+      width:100%;
+      height:520px;
+      object-fit:cover;
+      border-radius:10px;
+      display:block;
+      background: #111;
     }
-    button:hover {
-      transform: scale(1.1);
+    .nameplate{
+      text-align:center;
+      padding:10px 6px;
     }
-    section {
-      padding: 60px 20px;
-      text-align: center;
+    .nameplate .title{ font-family:'Press Start 2P', monospace; color:var(--neon-cyan); font-size:11px; }
+    .nameplate .subtitle{ color:#cfe6ff; font-size:12px; }
+
+    .panel{
+      min-width:260px;
+      width:360px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.35));
+      border-radius:12px;
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:flex-start;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
     }
-    .card {
-      background: rgba(255,255,255,0.1);
-      margin: 20px auto;
-      padding: 25px;
-      max-width: 400px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px #00ffff55;
+    .panel-item{ background:rgba(255,255,255,0.02); padding:10px 12px; border-radius:8px; width:100%; color:#e6f6ff; }
+    .btn{
+      display:inline-block;
+      text-decoration:none;
+      padding:10px 14px;
+      border-radius:10px;
+      background: linear-gradient(90deg,var(--neon-cyan),var(--neon-pink));
+      color:#07121a;
+      font-weight:800;
+      text-align:center;
+      font-family:'Press Start 2P', monospace;
+      cursor:pointer;
+      border:none;
     }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: rgba(0,0,0,0.4);
+    .btn:disabled{ opacity:0.5; cursor:not-allowed; }
+
+    .controls{
+      display:flex;
+      gap:8px;
+      width:100%;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .overlay{
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(180deg, rgba(2,6,23,0.65), rgba(2,6,23,0.6));
+      z-index:8;
+      transition:opacity .25s ease, visibility .25s;
+    }
+    .overlay.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+
+    .overlay-box{
+      text-align:center;
+      padding:28px;
+      border-radius:10px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04);
+      width:min(520px,92%);
+      color:#dfeefb;
+    }
+    .overlay h1{ font-family:'Press Start 2P', monospace; color:var(--neon-pink); margin:0 0 10px 0; font-size:20px; }
+    .overlay p{ margin:0 0 18px 0; color:#cfe6ff; }
+
+    .scanlines{
+      position:absolute; inset:0;
+      background-image: repeating-linear-gradient(
+        180deg,
+        rgba(255,255,255,0.02) 0px,
+        rgba(255,255,255,0.01) 1px,
+        transparent 2px,
+        transparent 6px
+      );
+      mix-blend-mode:overlay;
+      opacity:0.3;
+      pointer-events:none;
+    }
+    .vignette{
+      position:absolute; inset:0;
+      background: radial-gradient(1200px 600px at 50% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.7) 100%);
+      mix-blend-mode:multiply;
+      pointer-events:none;
+    }
+
+    .footer{ padding:12px 20px; text-align:center; color:#9fb7d6; font-size:12px; }
+
+    @media (max-width:880px){
+      .photo-card img{ height:420px; }
+      .content{ padding:14px; gap:14px; }
+    }
+    @media (max-width:480px){
+      .photo-card img{ height:360px; }
+      .content{ flex-direction:column; align-items:center }
     }
   </style>
 </head>
 <body>
-  <nav>
-    <div><strong>Justine Ilagan</strong></div>
-    <div>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+  <div class="frame" role="main" aria-label="Visual game front page">
+    <div class="hud">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="logo">PIXEL ARENA</div>
+        <div class="score">SCORE <span class="val" id="score">000120</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="font-size:13px">HP: <strong style="color:#ff8b8b">❤❤</strong></div>
+        <div style="font-size:13px">LVL <strong>2</strong></div>
+      </div>
     </div>
-  </nav>
 
-  <div class="hero">
-    <h1>Hello, I'm Stitch 👋</h1>
-    <p>Welcome to my personal website</p>
-    <button onclick="sayHi()">Say Hi</button>
+    <div class="content">
+      <div class="photo-card" aria-hidden="false">
+        <!-- By default the page will try to load hero.jpg if you rename your file.
+             Or use the Import button to pick an image from your computer. -->
+        <img id="heroImage" src="hero.jpg" alt="Performer holding a microphone" />
+        <div class="nameplate">
+          <div class="title">MAIN HERO</div>
+          <div class="subtitle">Live Performer</div>
+        </div>
+      </div>
+
+      <div class="panel" role="complementary" aria-label="Action panel">
+        <div class="panel-item">MISSION: Win the crowd</div>
+        <div class="panel-item">TIME: <strong id="time">02:34</strong></div>
+
+        <div class="panel-item controls">
+          <label for="fileInput" style="font-size:12px;color:#bfe6ff">Import Image</label>
+          <input id="fileInput" type="file" accept="image/*" style="color:transparent" />
+        </div>
+
+        <div style="display:flex;gap:8px;width:100%;justify-content:space-between">
+          <button id="downloadBtn" class="btn" disabled>Download as hero.jpg</button>
+          <button id="startBtn" class="btn">▶ START</button>
+        </div>
+
+        <div class="panel-item" style="font-size:12px;color:#9fb7d6">
+          Tip: You can rename your local file to hero.jpg (case-sensitive) so the page loads it automatically,
+          or import it here then click Download to save a renamed copy.
+        </div>
+      </div>
+    </div>
+
+    <div id="startOverlay" class="overlay" role="dialog" aria-modal="true" aria-label="Start overlay">
+      <div class="overlay-box">
+        <h1>Ready?</h1>
+        <p>Click START to begin the visual demo. Use Import Image to load your photo first.</p>
+        <div style="display:flex;gap:10px;justify-content:center">
+          <button id="overlayStart" class="btn">▶ START</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+
+    <div class="footer">UI demo • visual game theme • non-identifying demo image</div>
   </div>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <div class="card">
-      <p>I love coding HTML, CSS, C++, and JavaScript, and creating fun projects!</p>
-    </div>
-  </section>
-
-  <section id="projects">
-    <h2>My Projects</h2>
-    <div class="card">🐍 Snake Game</div>
-    <div class="card">🚗 Car Game</div>
-    <div class="card">🧮 Calculator</div>
-  </section>
-
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <div class="card">
-      <p>Email: justineilagan003@gmail.com</p>
-      <button onclick="changeTheme()">Change Theme</button>
-    </div>
-  </section>
-
-  <footer>
-    © 2026 Justine Ilagan's Personal Website
-  </footer>
-
   <script>
-    function sayHi() {
-      alert("Hi! Thanks for visiting my website 😄");
-    }
-    function changeTheme() {
-      document.body.style.background =
-        "linear-gradient(135deg, #1d2671, #c33764)";
-    }
+    (function(){
+      const fileInput = document.getElementById('fileInput');
+      const heroImage = document.getElementById('heroImage');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const startBtn = document.getElementById('startBtn');
+      const overlay = document.getElementById('startOverlay');
+      const overlayStart = document.getElementById('overlayStart');
+
+      let currentFileBlob = null;
+
+      // Import image from user's computer and show it immediately
+      fileInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+          alert('Please choose an image file.');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          heroImage.src = ev.target.result;
+          currentFileBlob = dataURLToBlob(ev.target.result);
+          downloadBtn.disabled = false;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      // Download the current image with a new filename (hero.jpg)
+      downloadBtn.addEventListener('click', () => {
+        if (!currentFileBlob) {
+          // fallback: try to fetch current src (if it's a cross-origin URL this will fail)
+          alert('No imported image available. Import an image first or rename your local file to hero.jpg and reload the page.');
+          return;
+        }
+        const url = URL.createObjectURL(currentFileBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'hero.jpg';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      });
+
+      // Start buttons hide the overlay and do a small score effect
+      function beginDemo() {
+        overlay.classList.add('hidden');
+        const scoreEl = document.getElementById('score');
+        // animate a random score as a simple demo
+        let count = 0;
+        const target = Math.floor(Math.random()*900000)+10000;
+        const step = Math.max(1, Math.floor(target/40));
+        const iv = setInterval(() => {
+          count += step;
+          scoreEl.textContent = String(Math.min(count, target)).padStart(6,'0');
+          if (count >= target) clearInterval(iv);
+        }, 18);
+      }
+      startBtn.addEventListener('click', beginDemo);
+      overlayStart.addEventListener('click', beginDemo);
+
+      // Helper: convert dataURL -> Blob
+      function dataURLToBlob(dataurl) {
+        const parts = dataurl.split(',');
+        const mime = parts[0].match(/:(.*?);/)[1];
+        const bstr = atob(parts[1]);
+        let n = bstr.length;
+        const u8arr = new Uint8Array(n);
+        while(n--) u8arr[n] = bstr.charCodeAt(n);
+        return new Blob([u8arr], {type:mime});
+      }
+
+      // If hero.jpg exists in the same folder and loads fine, keep it.
+      // If the initial load fails, replace with a neutral placeholder and show a console message.
+      heroImage.addEventListener('error', function(){
+        console.warn('Default image "hero.jpg" not found — import an image using the Import button or place hero.jpg alongside index.html.');
+        heroImage.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+          '<svg xmlns="http://www.w3.org/2000/svg" width="700" height="1000"><rect width="100%" height="100%" fill="#111"/><text x="50%" y="50%" font-size="24" fill="#9fb7d6" font-family="Arial" text-anchor="middle">No image found — import one or name it hero.jpg</text></svg>'
+        );
+      });
+    })();
   </script>
 </body>
 </html>
