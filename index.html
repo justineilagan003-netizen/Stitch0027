@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Justine Ilagan's Website</title>
+  <meta name="description" content="Justine Ilagan's personal website with projects, contact info, and portfolio.">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      min-height: 100vh;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 30px;
+      background: rgba(0,0,0,0.5);
+      position: sticky;
+      top: 0;
+    }
+    nav a {
+      color: cyan;
+      text-decoration: none;
+      margin-left: 15px;
+      font-weight: bold;
+    }
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+    }
+    .hero h1 {
+      font-size: 3em;
+      text-shadow: 0 0 15px cyan;
+    }
+    .hero p {
+      margin-top: 10px;
+      font-size: 1.2em;
+    }
+    button {
+      margin-top: 20px;
+      padding: 15px 35px;
+      font-size: 16px;
+      border: none;
+      border-radius: 30px;
+      background: cyan;
+      color: black;
+      cursor: pointer;
+      box-shadow: 0 0 15px cyan;
+      transition: 0.3s;
+    }
+    button:hover {
+      transform: scale(1.1);
+    }
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .card {
+      background: rgba(255,255,255,0.1);
+      margin: 20px auto;
+      padding: 25px;
+      max-width: 400px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00ffff55;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.4);
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div><strong>Justine Ilagan</strong></div>
+    <div>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>Hello, I'm Stitch 👋</h1>
+    <p>Welcome to my personal website</p>
+    <button onclick="sayHi()">Say Hi</button>
+  </div>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="card">
+      <p>I love coding HTML, CSS, C++, and JavaScript, and creating fun projects!</p>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>My Projects</h2>
+    <div class="card">🐍 Snake Game</div>
+    <div class="card">🚗 Car Game</div>
+    <div class="card">🧮 Calculator</div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <div class="card">
+      <p>Email: justineilagan003@gmail.com</p>
+      <button onclick="changeTheme()">Change Theme</button>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Justine Ilagan's Personal Website
+  </footer>
+
+  <script>
+    function sayHi() {
+      alert("Hi! Thanks for visiting my website 😄");
+    }
+    function changeTheme() {
+      document.body.style.background =
+        "linear-gradient(135deg, #1d2671, #c33764)";
+    }
+  </script>
+</body>
+</html>
